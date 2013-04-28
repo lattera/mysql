@@ -5,7 +5,6 @@
 #include <unistd.h>
 
 #include "sql.h"
-#include "misc.h"
 
 SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 {
@@ -32,7 +31,7 @@ SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 		
 		if (!(row)) {
 			
-			rows = xmalloc(sizeof(SQL_ROW));
+			rows = calloc(1, sizeof(SQL_ROW));
 			
 			if (!(rows))
 				goto end;
@@ -41,7 +40,7 @@ SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 			
 		} else {
 			
-			row->next = xmalloc(sizeof(SQL_ROW));
+			row->next = calloc(1, sizeof(SQL_ROW));
 			
 			if (!(row->next))
 				goto end;
@@ -53,7 +52,7 @@ SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 			
 			if (!(row->cols)) {
 				
-				row->cols = xmalloc(sizeof(SQL_COL));
+				row->cols = calloc(1, sizeof(SQL_COL));
 				
 				if (!(row->cols))
 					goto end;
@@ -62,7 +61,7 @@ SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 				
 			} else {
 				
-				col->next = xmalloc(sizeof(SQL_COL));
+				col->next = calloc(1, sizeof(SQL_COL));
 				
 				if (!(col->next))
 					goto end;
